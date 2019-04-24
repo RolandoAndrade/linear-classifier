@@ -1,5 +1,6 @@
 class DataGenerator
 {
+
     generateExpected(x,y)
     {
         //y=mx+b-> y-mx-b=0
