@@ -44,6 +44,11 @@ class Vector
         }
         return new Vector(this.vector);
     }
+
+    get(i)
+    {
+        return this.vector[i];
+    }
 }
 
 class Perceptron
@@ -85,5 +90,15 @@ class Perceptron
         let gradient = x.sca(delta);
         this.weights=this.weights.sub(gradient.sca(this.learningRate));
         this.bias=delta;
+    }
+
+    draw()
+    {
+        let w1=this.weights.get(0);
+        let w2=this.weights.get(1);
+        let y1=(-20*w1-this.bias)/w2;
+        let y2=(20*w1-this.bias)/w2;
+        console.log(-10,y1,10,y2);
+        new Line().drawBy(-10,y1,10,y2);
     }
 }

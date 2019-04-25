@@ -19,17 +19,20 @@ function drawData(data)
 let data=new DataGenerator().generate(100);
 drawData(data);
 console.log(data);
-new Line().draw(-1,1);
+//new Line().draw(-1,1);
 
 let p=new Perceptron(2,new Sigmoid());
 let input=[5,6];
 let out=1;
-console.log(p.getOutput(input));
-for(let i=0;i<1000;i++)
+console.log(p.getOutputAll(data.inputs));
+for(let i=0;i<3000;i++)
 {
-    p.learnByOneInput(input,out);
+    for(let i=0;i<data.inputs.length;i++)
+        p.learnByOneInput(data.inputs[i],data.outputs[i]);
 }
-console.log(p.getOutput(input));
+console.log(p.getOutputAll(data.inputs));
+
+p.draw();
 
 
 

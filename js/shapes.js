@@ -76,9 +76,25 @@ class Line
             ctx.moveTo(x1*PROP, y1*PROP*-1);
             ctx.lineTo(x2*PROP, y2*PROP*-1);
             ctx.strokeStyle ="#9dff0f";
-        ctx.stroke();
+            ctx.stroke();
         ctx.closePath();
     }
+
+    drawBy(x1,y1,x2,y2)
+    {
+        const PROP=25;
+        x1*=PROP;
+        x2*=PROP;
+        y1*=PROP;
+        y2*=PROP;
+        ctx.beginPath();
+            ctx.moveTo(x1+250, y1+250);
+            ctx.lineTo(x2+250, y2+250);
+            ctx.strokeStyle ="#000000";
+            ctx.stroke();
+        ctx.closePath();
+    }
+
     axis(x)
     {
         ctx.beginPath();
