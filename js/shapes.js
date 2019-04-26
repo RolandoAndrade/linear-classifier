@@ -18,6 +18,7 @@ class Rectangle
         ctx.lineWidth = this.lineWidth;
         ctx.strokeStyle = this.borderColor;
         ctx.stroke();
+        ctx.closePath();
 
     }
     move(x,y)
@@ -49,6 +50,7 @@ class Circle
         ctx.lineWidth = this.lineWidth;
         ctx.strokeStyle = this.borderColor;
         ctx.stroke();
+        ctx.closePath();
     }
 
     move(x,y)
@@ -97,6 +99,7 @@ class Line
 
     axis(x)
     {
+
         ctx.beginPath();
         ctx.moveTo(x, 0);
         ctx.lineTo(x, 500);

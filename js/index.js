@@ -1,5 +1,7 @@
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
+let errorCanvas = document.getElementById('error');
+let ctx2 = errorCanvas.getContext('2d');
 
 function drawData(data)
 {
@@ -8,36 +10,33 @@ function drawData(data)
     for(let i=0;i<data.inputs.length;i++)
     {
         if(data.outputs[i])
-            new Rectangle(data.inputs[i][0]*25+250,data.inputs[i][1]*25*-1+250,3,3,"#616aff").draw();
+            new Circle(data.inputs[i][0]*25+250,data.inputs[i][1]*25*-1+250,1.5,"#616aff").draw();
         else
-            new Rectangle(data.inputs[i][0]*25+250,data.inputs[i][1]*25*-1+250,3,3,"#ff566f").draw();
+            new Circle(data.inputs[i][0]*25+250,data.inputs[i][1]*25*-1+250,1.5,"#ff566f").draw();
     }
     new Line().axis(250);
 }
 
 
 let data=new DataGenerator().generate(100);
-drawData(data);
-console.log(data);
-//new Line().draw(-1,1);
-
 let p=new Perceptron(2,new Sigmoid());
-let input=[5,6];
-let out=1;
-console.log(p.getOutputAll(data.inputs));
-for(let i=0;i<3000;i++)
+
+function learn()
 {
+    drawData(data);
     for(let i=0;i<data.inputs.length;i++)
-        p.learnByOneInput(data.inputs[i],data.outputs[i]);
+    {
+        let error = p.learnByOneInput(data.inputs[i],data.outputs[i]);
+    }
+
+    p.draw();
 }
-console.log(p.getOutputAll(data.inputs));
-
-p.draw();
 
 
 
 
 
+window.setInterval(learn,300);
 
 
 

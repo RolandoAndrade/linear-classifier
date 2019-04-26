@@ -85,20 +85,22 @@ class Perceptron
     learnByOneInput(input, expectedOutput)
     {
         let x = new Vector(input);
-        let z = this.weights.dot(x);
-        let delta = (this.activationFunction.f(z)-expectedOutput)*this.activationFunction.dF(z);
-        let gradient = x.sca(delta);
+        let z = this.weights.dot(x)+this.bias;
+        let error = this.activationFunction.f(z)-expectedOutput;
+        let delta = (error)*this.activationFunction.dF(z);
+        let gradient = x.sca(delta*this.learningRate);
         this.weights=this.weights.sub(gradient.sca(this.learningRate));
-        this.bias=delta;
+        this.bias-=delta*this.learningRate;
+        return error;
     }
 
     draw()
     {
+        //console.log(this.weights,this.bias);
         let w1=this.weights.get(0);
         let w2=this.weights.get(1);
-        let y1=(-20*w1-this.bias)/w2;
-        let y2=(20*w1-this.bias)/w2;
-        console.log(-10,y1,10,y2);
-        new Line().drawBy(-10,y1,10,y2);
+        let y1=-(-10*w1+this.bias)/w2;
+        let y2=-(10*w1+this.bias)/w2;
+        new Line().drawBy(-10,-y1,10,-y2);
     }
 }
