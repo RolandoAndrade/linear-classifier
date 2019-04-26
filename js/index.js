@@ -1,7 +1,5 @@
 let canvas = document.getElementById('canvas');
 let ctx = canvas.getContext('2d');
-let errorCanvas = document.getElementById('error');
-let ctx2 = errorCanvas.getContext('2d');
 
 function drawData(data)
 {
@@ -16,19 +14,18 @@ function drawData(data)
     }
     new Line().axis(250);
 }
-
-
 let data=new DataGenerator().generate(100);
-let p=new Perceptron(2,new Sigmoid());
+function generate()
+{
+    data=new DataGenerator().generate(100);
+}
 
+
+let p=new Perceptron(2,new Sigmoid());
 function learn()
 {
     drawData(data);
-    for(let i=0;i<data.inputs.length;i++)
-    {
-        let error = p.learnByOneInput(data.inputs[i],data.outputs[i]);
-    }
-
+    p.learn(data.inputs,data.outputs);
     p.draw();
 }
 

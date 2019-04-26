@@ -1,12 +1,15 @@
 class DataGenerator
 {
+    constructor()
+    {
+        this.m=Math.random()*10-5;
+        this.b=Math.random()*10-5;
+    }
 
     generateExpected(x,y)
     {
         //y=mx+b-> y-mx-b=0
-        let m = -1;
-        let b = 1;
-        return y-m*x-b>0
+        return y-this.m*x-this.b>0
     }
 
     generate(n,lim=10)

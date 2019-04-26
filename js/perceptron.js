@@ -1,56 +1,3 @@
-class Sigmoid
-{
-    f(x)
-    {
-        return 1/(1+Math.exp(-x));
-    }
-
-    dF(x)
-    {
-        return this.f(x)*(1-this.f(x));
-    }
-}
-class Vector
-{
-    constructor(vector)
-    {
-        this.vector=[...vector];
-    }
-
-    dot(x)
-    {
-        let r=0;
-        for(let i=0;i<this.vector.length;i++)
-        {
-            r+=this.vector[i]*x.vector[i];
-        }
-        return r;
-    }
-
-    sca(x)
-    {
-        for(let i=0;i<this.vector.length;i++)
-        {
-            this.vector[i]*=x;
-        }
-        return new Vector(this.vector);
-    }
-
-    sub(x)
-    {
-        for(let i=0;i<this.vector.length;i++)
-        {
-            this.vector[i]-=x.vector[i];
-        }
-        return new Vector(this.vector);
-    }
-
-    get(i)
-    {
-        return this.vector[i];
-    }
-}
-
 class Perceptron
 {
     constructor(numberOfInputs, activationFunction, learningRate=0.1)
@@ -85,7 +32,7 @@ class Perceptron
     learnByOneInput(input, expectedOutput)
     {
         let x = new Vector(input);
-        let z = this.weights.dot(x)+this.bias;
+        let z = this.weights.dot(x)+this.bias;//Wx+b
         let error = this.activationFunction.f(z)-expectedOutput;
         let delta = (error)*this.activationFunction.dF(z);
         let gradient = x.sca(delta*this.learningRate);
@@ -94,9 +41,18 @@ class Perceptron
         return error;
     }
 
+    learn(inputs, expectedOutputs)
+    {
+        let err;
+        for(let i=0;i<inputs.length;i++)
+        {
+            err = p.learnByOneInput(inputs[i],expectedOutputs[i]);
+        }
+        return err;
+    }
+
     draw()
     {
-        //console.log(this.weights,this.bias);
         let w1=this.weights.get(0);
         let w2=this.weights.get(1);
         let y1=-(-10*w1+this.bias)/w2;
